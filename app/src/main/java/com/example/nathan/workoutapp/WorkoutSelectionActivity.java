@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.Spinner;
 import android.view.View;
@@ -13,19 +14,18 @@ import android.view.View;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class WorkoutSelectionActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class WorkoutSelectionActivity extends AppCompatActivity {
+    int position;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_selection);
 
+
         //Spinner elements
         Spinner workoutSelectorSpinner = (Spinner)findViewById(R.id.selectWorkoutSpinner);
-        Spinner weekSelectorSpinner = (Spinner)findViewById(R.id.selectWeekSpinner);
-
-        //Spinner listeners
-        workoutSelectorSpinner.setOnItemSelectedListener(this);
-        weekSelectorSpinner.setOnItemSelectedListener(this);
+        final Spinner weekSelectorSpinner = (Spinner)findViewById(R.id.selectWeekSpinner);
 
         //ArrayList of different workout programs
         ArrayList<String> workoutPrograms = new ArrayList<String>();
@@ -35,55 +35,74 @@ public class WorkoutSelectionActivity extends AppCompatActivity implements Adapt
         workoutPrograms.add("Candito 6 Week Strength Program");
 
         //ArrayAdapter for workout program ArrayList
-        ArrayAdapter<String> workoutProgramAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, workoutPrograms);
-
+        ArrayAdapter<String> workoutProgramAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, workoutPrograms);
         workoutProgramAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         //Attaching ArrayAdapter to workout selector spinner
         workoutSelectorSpinner.setAdapter(workoutProgramAdapter);
 
-        //Creating ArrayList of week options based on selected workout program
-        String selectedProgram = workoutSelectorSpinner.getSelectedItem().toString();
-        ArrayList<String> weeks = new ArrayList<String>();
-        weeks.add("Week One");
-        weeks.add("Week Two");
-        weeks.add("Week Three");
-        weeks.add("Week Four");
-        weeks.add("Week Five");
-        weeks.add("Week Six");
-        if (selectedProgram.equals("Coan-Phillipi 10 Week Squat Routing") || selectedProgram.equals("Coan-Phillip 10 Week Deadlift Routine")){
-            weeks.add("Week Seven");
-            weeks.add("Week Eight");
-            weeks.add("Week Nine");
-            weeks.add("Week Ten");
-        }
+        //Workout selector spinner listener
+        workoutSelectorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
 
-        //ArrayAdapter for weeks ArrayList
-        ArrayAdapter<String> weekAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,weeks);
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l){
+                //Retrieves position of the spinner to determine which program is selected
+                position = i;
+                add();
+            }
 
-        weekAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            //Method to add weeks based on workout program selection to ArrayList of week options
+            private void add(){
+                Toast.makeText(getBaseContext(), "" + position, Toast.LENGTH_LONG).show();
 
-        //Attaching ArrayAdapter to week selector spinner
-        weekSelectorSpinner.setAdapter(weekAdapter);
-    }
+                ArrayList<String> weeks = new ArrayList<String>();
+                weeks.add("Week One");
+                weeks.add("Week Two");
+                weeks.add("Week Three");
+                weeks.add("Week Four");
+                weeks.add("Week Five");
+                weeks.add("Week Six");
+                if (position == 0 || position == 1){
+                    weeks.add("Week Seven");
+                    weeks.add("Week Eight");
+                    weeks.add("Week Nine");
+                    weeks.add("Week Ten");
+                }
 
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id){
+                //ArrayAdapter for weeks ArrayList
+                ArrayAdapter<String> weeksAdapter = new ArrayAdapter<String>(WorkoutSelectionActivity.this, android.R.layout.simple_spinner_dropdown_item,weeks);
+                weeksAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        Spinner input = (Spinner) parent;
-        String selection = "";
+                //Binding ArrayAdapter to week selector spinner
+                weekSelectorSpinner.setAdapter(weeksAdapter);
 
-        if (input.getId()==R.id.selectWorkoutSpinner) {
-            //On selecting a workout program
-            selection = parent.getItemAtPosition(position).toString();
-        }
-        else if (input.getId()==R.id.selectWeekSpinner){
-            selection = parent.getItemAtPosition(position).toString();
-        }
-        //Showing selected workout program
-        Toast.makeText(parent.getContext(),"Selected: " + selection, Toast.LENGTH_LONG).show();
-    }
+                select();
+            }
 
-    public void onNothingSelected(AdapterView<?> argo0){
-        //To fill out
+            //OnItemSelectedListener for week selector spinner
+            private void select(){
+                weekSelectorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        //Toast.makeText(getBaseContext(),"Week " + i, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                        // TODO Auto-generated method stub
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView){
+                // TODO Auto-generated method stub
+            }
+        });
+
+        EditText targetWeightInput = (EditText)findViewById(R.id.TargetWeightInput);
+        String test = targetWeightInput.getText().toString();
+        Log.i("EditText Input",test);
+        //Toast.makeText(getApplicationContext(),"Target Weight: " + test, Toast.LENGTH_SHORT).show();
     }
 }
