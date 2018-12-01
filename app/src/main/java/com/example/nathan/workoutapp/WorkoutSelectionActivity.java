@@ -12,7 +12,6 @@ import android.widget.Spinner;
 import android.view.View;
 import android.widget.Button;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class WorkoutSelectionActivity extends AppCompatActivity {
@@ -111,7 +110,7 @@ public class WorkoutSelectionActivity extends AppCompatActivity {
             public void onClick(View view){
                 //Retrieve target weight entered by user
                 EditText targetWeightInput = (EditText) findViewById(R.id.TargetWeightInput);
-                if (targetWeightInput.getText()!= null){
+                if (!(targetWeightInput.getText().toString().equals(""))){
                     String targetWeightString = targetWeightInput.getText().toString();
                     targetWeight = Integer.parseInt(targetWeightString);
                     //Warning to user if target weight is unrealistic
