@@ -11,8 +11,10 @@
         android:layout_width="match_parent"
         android:id="@+id/input_layout"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
+        android:layout_centerInParent="true"
+        android:gravity="center"
         android:orientation="vertical">
+
 
         <TextView
             android:id="@+id/selectWorkoutTitle"
@@ -20,14 +22,17 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="Select Workout:"
-            android:textAppearance="?android:textAppearanceLarge"
-            android:textStyle="bold"/>
+            android:textSize="30sp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:padding="10dp"/>
 
         <Spinner
             android:id="@+id/selectWorkoutSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
+            android:layout_gravity="center_horizontal"
+            android:padding="10dp">
         </Spinner>
 
         <TextView
@@ -36,36 +41,46 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Select Week:"
-            android:textAppearance="?android:textAppearanceLarge"
-            android:textStyle="bold"/>
+            android:textSize="30sp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:padding="10dp"/>
+
         <Spinner
             android:id="@+id/selectWeekSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
+            android:layout_gravity="center_horizontal"
+            android:padding="10dp">
         </Spinner>
 
         <TextView
             android:id="@+id/TargetWeightTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enter Target Weight:"
             android:layout_gravity="center_horizontal"
-            android:textAppearance="?android:textAppearanceLarge"
-            android:textStyle="bold"/>
+            android:padding="10dp"
+            android:text="Enter Target Weight:"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/TargetWeightInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:textSize="30sp"
+            android:padding="10dp"/>
 
         <Button
             android:id="@+id/submitButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/input_layout"
             android:layout_gravity="center_horizontal"
+            android:padding="10dp"
             android:text="Submit" />
     </LinearLayout>
 </android.widget.RelativeLayout>

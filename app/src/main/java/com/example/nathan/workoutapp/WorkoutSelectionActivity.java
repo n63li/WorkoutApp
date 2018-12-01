@@ -10,18 +10,21 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.Spinner;
 import android.view.View;
+import android.widget.Button;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class WorkoutSelectionActivity extends AppCompatActivity {
     int position;
+    int targetWeight = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_selection);
 
+        //Log.i("test","does this work");
 
         //Spinner elements
         Spinner workoutSelectorSpinner = (Spinner)findViewById(R.id.selectWorkoutSpinner);
@@ -53,7 +56,7 @@ public class WorkoutSelectionActivity extends AppCompatActivity {
 
             //Method to add weeks based on workout program selection to ArrayList of week options
             private void add(){
-                Toast.makeText(getBaseContext(), "" + position, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getBaseContext(), "" + position, Toast.LENGTH_LONG).show();
 
                 ArrayList<String> weeks = new ArrayList<String>();
                 weeks.add("Week One");
@@ -100,9 +103,28 @@ public class WorkoutSelectionActivity extends AppCompatActivity {
             }
         });
 
-        EditText targetWeightInput = (EditText)findViewById(R.id.TargetWeightInput);
-        String test = targetWeightInput.getText().toString();
-        Log.i("EditText Input",test);
-        //Toast.makeText(getApplicationContext(),"Target Weight: " + test, Toast.LENGTH_SHORT).show();
+        //Reaction to submit button press
+        Button submit = (Button) findViewById(R.id.submitButton);
+        submit.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view){
+                //Retrieve target weight entered by user
+                EditText targetWeightInput = (EditText) findViewById(R.id.TargetWeightInput);
+                if (targetWeightInput.getText()!= null){
+                    String targetWeightString = targetWeightInput.getText().toString();
+                    targetWeight = Integer.parseInt(targetWeightString);
+                    //Warning to user if target weight is unrealistic
+                    if(targetWeight>=700){
+                        openRealisticWeightDialog();
+                    }
+                }
+            }
+        });
+    }
+
+    public void openRealisticWeightDialog(){
+        WeightDialog realisticWeightDialog = new WeightDialog();
+        realisticWeightDialog.show(getSupportFragmentManager(),"example dialog");
     }
 }
