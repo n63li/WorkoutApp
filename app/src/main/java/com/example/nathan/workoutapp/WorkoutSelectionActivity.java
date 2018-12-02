@@ -3,34 +3,34 @@ package com.example.nathan.workoutapp;
 //Imports
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Toast;
 import android.widget.Spinner;
 import android.view.View;
 import android.widget.Button;
+import android.content.Intent;
 
 import java.util.ArrayList;
 
 public class WorkoutSelectionActivity extends AppCompatActivity {
-    int position;
-    int targetWeight = 0;
+    public static final String WORKOUT_PROGRAM = "com.exmaple.nathan.workoutapp.WORKOUT_PROGRAM";
+    public static final String WORKOUT_WEEK = "com.example.nathan.workoutapp.WORKOUT_WEEK";
+    public static final String TARGET_WEIGHT = "com.example.nathan.workoutapp.TARGET_WEIGHT";
+    String workoutProgram, workoutWeek = "";
+    int programPosition, weekPosition, targetWeight = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_selection);
 
-        //Log.i("test","does this work");
-
         //Spinner elements
         Spinner workoutSelectorSpinner = (Spinner)findViewById(R.id.selectWorkoutSpinner);
         final Spinner weekSelectorSpinner = (Spinner)findViewById(R.id.selectWeekSpinner);
 
         //ArrayList of different workout programs
-        ArrayList<String> workoutPrograms = new ArrayList<String>();
+        final ArrayList<String> workoutPrograms = new ArrayList<String>();
         workoutPrograms.add("Coan-Phillipi 10 Week Squat Routine");
         workoutPrograms.add("Coan-Phillipi 10 Week Deadlift Routine");
         workoutPrograms.add("KIZEN 6 Week Bench Program");
@@ -48,14 +48,14 @@ public class WorkoutSelectionActivity extends AppCompatActivity {
 
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l){
-                //Retrieves position of the spinner to determine which program is selected
-                position = i;
+                //Retrieves programPosition of the spinner to determine which program is selected
+                programPosition = i;
                 add();
             }
 
             //Method to add weeks based on workout program selection to ArrayList of week options
             private void add(){
-                //Toast.makeText(getBaseContext(), "" + position, Toast.LENGTH_LONG).show();
+                workoutProgram = workoutPrograms.get(programPosition);
 
                 ArrayList<String> weeks = new ArrayList<String>();
                 weeks.add("Week One");
@@ -64,7 +64,7 @@ public class WorkoutSelectionActivity extends AppCompatActivity {
                 weeks.add("Week Four");
                 weeks.add("Week Five");
                 weeks.add("Week Six");
-                if (position == 0 || position == 1){
+                if (programPosition == 0 || programPosition == 1){
                     weeks.add("Week Seven");
                     weeks.add("Week Eight");
                     weeks.add("Week Nine");
@@ -79,6 +79,8 @@ public class WorkoutSelectionActivity extends AppCompatActivity {
                 weekSelectorSpinner.setAdapter(weeksAdapter);
 
                 select();
+
+                workoutWeek = weeks.get(weekPosition);
             }
 
             //OnItemSelectedListener for week selector spinner
@@ -87,6 +89,7 @@ public class WorkoutSelectionActivity extends AppCompatActivity {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         //Toast.makeText(getBaseContext(),"Week " + i, Toast.LENGTH_SHORT).show();
+                        weekPosition = i;
                     }
 
                     @Override
@@ -117,6 +120,9 @@ public class WorkoutSelectionActivity extends AppCompatActivity {
                     if(targetWeight>=700){
                         openRealisticWeightDialog();
                     }
+                    else{
+                        openWorkoutDisplayActivity();
+                    }
                 }
             }
         });
@@ -125,5 +131,13 @@ public class WorkoutSelectionActivity extends AppCompatActivity {
     public void openRealisticWeightDialog(){
         WeightDialog realisticWeightDialog = new WeightDialog();
         realisticWeightDialog.show(getSupportFragmentManager(),"example dialog");
+    }
+
+    public void openWorkoutDisplayActivity(){
+        Intent intent = new Intent(this, WorkoutDisplayActivity.class);
+        intent.putExtra(WORKOUT_PROGRAM, workoutProgram);
+        intent.putExtra(WORKOUT_WEEK,workoutWeek);
+        intent.putExtra(TARGET_WEIGHT,targetWeight);
+        startActivity(intent);
     }
 }
