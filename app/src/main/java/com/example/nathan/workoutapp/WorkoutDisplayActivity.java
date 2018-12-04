@@ -1,11 +1,12 @@
 package com.example.nathan.workoutapp;
 
+//Imports
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.content.Intent;
 import android.widget.Toast;
-
+import android.app.ActionBar;
 import org.w3c.dom.Text;
 
 public class WorkoutDisplayActivity extends AppCompatActivity {
@@ -18,12 +19,15 @@ public class WorkoutDisplayActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String workoutProgram = intent.getStringExtra(WorkoutSelectionActivity.WORKOUT_PROGRAM);
         String workoutWeek = intent.getStringExtra(WorkoutSelectionActivity.WORKOUT_WEEK);
+        String workoutDay = intent.getStringExtra(WorkoutSelectionActivity.WORKOUT_DAY);
         int targetWeight = intent.getIntExtra(WorkoutSelectionActivity.TARGET_WEIGHT,0);
 
-        TextView workoutProgramTextview = (TextView) findViewById(R.id.workoutProgram);
         TextView workoutWeekTextview = (TextView) findViewById(R.id.workoutWeek);
-        workoutProgramTextview.setText(workoutProgram);
         workoutWeekTextview.setText(workoutWeek);
-        Toast.makeText(getBaseContext(),"Week " + targetWeight, Toast.LENGTH_SHORT).show();
+
+        //Setting name of action bar based on workout program
+        getSupportActionBar().setTitle(workoutProgram);
+
+        Toast.makeText(getBaseContext(),"Day " + workoutDay, Toast.LENGTH_SHORT).show();
     }
 }

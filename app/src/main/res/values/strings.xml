@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">WorkoutApp</string>
+    <string name="select_workout_text">Select Workout:</string>
+    <string name="select_week_text">Select Week:</string>
+    <string name="select_day_text">Select Day:</string>
+    <string name="target_weight_text">Enter Target Weight:</string>
+    <string name="target_weight_submit_button_text">Submit</string>
 </resources>

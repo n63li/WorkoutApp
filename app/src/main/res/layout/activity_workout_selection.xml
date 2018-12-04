@@ -21,18 +21,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Select Workout:"
+            android:text="@string/select_workout_text"
             android:textSize="30sp"
             android:textColor="@android:color/black"
             android:textStyle="bold"
-            android:padding="10dp"/>
+            android:padding="7dp"/>
 
         <Spinner
             android:id="@+id/selectWorkoutSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:padding="10dp">
+            android:padding="7dp">
         </Spinner>
 
         <TextView
@@ -40,18 +40,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Select Week:"
+            android:text="@string/select_week_text"
             android:textSize="30sp"
             android:textColor="@android:color/black"
             android:textStyle="bold"
-            android:padding="10dp"/>
+            android:padding="7dp"/>
 
         <Spinner
             android:id="@+id/selectWeekSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:padding="10dp">
+            android:padding="7dp">
+        </Spinner>
+
+        <TextView
+            android:id="@+id/selectDayTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/select_day_text"
+            android:textSize="30sp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:padding="7dp"/>
+
+        <Spinner
+            android:id="@+id/selectDaySpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="7dp">
         </Spinner>
 
         <TextView
@@ -59,8 +78,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:padding="10dp"
-            android:text="Enter Target Weight:"
+            android:padding="7dp"
+            android:text="@string/target_weight_text"
             android:textColor="@android:color/black"
             android:textSize="30sp"
             android:textStyle="bold" />
@@ -72,15 +91,14 @@
             android:layout_gravity="center"
             android:inputType="number"
             android:textSize="30sp"
-            android:padding="10dp"/>
+            android:padding="7dp"/>
 
         <Button
             android:id="@+id/submitButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/input_layout"
             android:layout_gravity="center_horizontal"
-            android:padding="10dp"
-            android:text="Submit" />
+            android:padding="7dp"
+            android:text="@string/target_weight_submit_button_text" />
     </LinearLayout>
 </RelativeLayout>
