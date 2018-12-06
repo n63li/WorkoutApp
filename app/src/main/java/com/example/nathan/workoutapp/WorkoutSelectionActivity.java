@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -34,13 +35,14 @@ public class WorkoutSelectionActivity extends AppCompatActivity {
 
         //ArrayList of different workout programs
         final ArrayList<String> workoutPrograms = new ArrayList<String>();
-        workoutPrograms.add("Coan-Phillipi 10 Week Squat Routine");
-        workoutPrograms.add("Coan-Phillipi 10 Week Deadlift Routine");
-        workoutPrograms.add("KIZEN 6 Week Bench Program");
-        workoutPrograms.add("Candito 6 Week Strength Program");
+        workoutPrograms.add("Coan Phillipi 10 Week Squat");
+        workoutPrograms.add("Coan Phillipi 10 Week Deadlift");
+        workoutPrograms.add("Kizen 6 Week Bench");
+        //workoutPrograms.add("Candito 6 Week Strength Program");
 
         //ArrayAdapter for workout program ArrayList
-        ArrayAdapter<String> workoutProgramAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, workoutPrograms);
+        ArrayAdapter<String> workoutProgramAdapter = new ArrayAdapter<String>
+                (this, android.R.layout.simple_spinner_dropdown_item, workoutPrograms);
         workoutProgramAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         //Attaching ArrayAdapter to workout selector spinner
@@ -62,27 +64,29 @@ public class WorkoutSelectionActivity extends AppCompatActivity {
 
                 ArrayList<String> weeks = new ArrayList<String>();
                 ArrayList<String> days = new ArrayList<String>();
-                weeks.add("Week One");
-                weeks.add("Week Two");
-                weeks.add("Week Three");
-                weeks.add("Week Four");
-                weeks.add("Week Five");
-                weeks.add("Week Six");
+                weeks.add("Week 1");
+                weeks.add("Week 2");
+                weeks.add("Week 3");
+                weeks.add("Week 4");
+                weeks.add("Week 5");
+                weeks.add("Week 6");
                 days.add("Day 1");
                 if (programPosition == 0 || programPosition == 1){
-                    weeks.add("Week Seven");
-                    weeks.add("Week Eight");
-                    weeks.add("Week Nine");
-                    weeks.add("Week Ten");
+                    weeks.add("Week 7");
+                    weeks.add("Week 8");
+                    weeks.add("Week 9");
+                    weeks.add("Week 10");
                 }
                 if (programPosition>=2){
                     days.add("Day 2");
                 }
 
                 //ArrayAdapter for weeks and days ArrayList
-                ArrayAdapter<String> weeksAdapter = new ArrayAdapter<String>(WorkoutSelectionActivity.this, android.R.layout.simple_spinner_dropdown_item,weeks);
+                ArrayAdapter<String> weeksAdapter = new ArrayAdapter<String>
+                        (WorkoutSelectionActivity.this, android.R.layout.simple_spinner_dropdown_item,weeks);
                 weeksAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                ArrayAdapter<String> daysAdapter = new ArrayAdapter<String>(WorkoutSelectionActivity.this, android.R.layout.simple_spinner_dropdown_item,days);
+                ArrayAdapter<String> daysAdapter = new ArrayAdapter<String>
+                        (WorkoutSelectionActivity.this, android.R.layout.simple_spinner_dropdown_item,days);
                 daysAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                 //Binding ArrayAdapter to week and day selector spinner
@@ -92,7 +96,7 @@ public class WorkoutSelectionActivity extends AppCompatActivity {
                 select();
 
                 workoutWeek = weeks.get(weekPosition);
-                workoutDay = weeks.get(dayPosition);
+                workoutDay = days.get(dayPosition);
             }
 
             //OnItemSelectedListener for week selector spinner
@@ -154,7 +158,7 @@ public class WorkoutSelectionActivity extends AppCompatActivity {
 
     public void openRealisticWeightDialog(){
         WeightDialog realisticWeightDialog = new WeightDialog();
-        realisticWeightDialog.show(getSupportFragmentManager(),"example dialog");
+        realisticWeightDialog.show(getSupportFragmentManager(),"weight_warning_dialog");
     }
 
     public void openWorkoutDisplayActivity(){

@@ -5,4 +5,5 @@
     <string name="select_day_text">Select Day:</string>
     <string name="target_weight_text">Enter Target Weight:</string>
     <string name="target_weight_submit_button_text">Submit</string>
+    <string name="add_exercise_text">Add Exercise</string>
 </resources>
