@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import android.util.Log;
-
 public class ExerciseAdapter extends FirestoreRecyclerAdapter<Exercise, ExerciseAdapter.ExerciseHolder> {
 
     public ExerciseAdapter(@NonNull FirestoreRecyclerOptions<Exercise> options) {
@@ -21,10 +19,9 @@ public class ExerciseAdapter extends FirestoreRecyclerAdapter<Exercise, Exercise
 
     @Override
     protected void onBindViewHolder(@NonNull ExerciseHolder holder, int position, @NonNull Exercise model) {
-        holder.exerciseTitle.setText(model.getTitle());
-        Log.d("Title", "Title: " + model.getTitle());
-        holder.sets.setText(String.valueOf(model.getPriority()));
-        holder.reps.setText(model.getDescription());
+        holder.exerciseTitle.setText(model.getExercise());
+        holder.sets.setText("Set " + String.valueOf(model.getSet()));
+        holder.reps.setText(String.valueOf(model.getReps()) + " Reps");
     }
 
     @NonNull

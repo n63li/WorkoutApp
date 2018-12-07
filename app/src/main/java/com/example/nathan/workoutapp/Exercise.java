@@ -1,39 +1,40 @@
 package com.example.nathan.workoutapp;
 
 public class Exercise {
-    /*
-    private String workoutType;
-    private int sets;
+
+    private String exercise;
+    private int set;
     private int reps;
-    private double oneRM;
-    private int RPE;
-    private String workoutFormula;
+    //private double oneRM;
+    //private int RPE;
+    //private String workoutFormula;
 
     public Exercise(){
         //empty constructor needed
     }
 
-    public Exercise(String workoutType, int sets, int reps, double oneRM, int RPE, String workoutFormula){
-        this.workoutType = workoutType;
-        this.sets = sets;
+    public Exercise(String exercise, int set, int reps /*, double oneRM, int RPE, String workoutFormula*/){
+        this.exercise = exercise;
+        this.set = set;
         this.reps = reps;
-        this.oneRM = oneRM;
-        this.RPE = RPE;
-        this.workoutFormula = workoutFormula;
+        //this.oneRM = oneRM;
+        //this.RPE = RPE;
+        //this.workoutFormula = workoutFormula;
     }
 
-    public String getWorkoutType() {
-        return workoutType;
+    public String getExercise() {
+        return exercise;
     }
 
-    public int getSets() {
-        return sets;
+    public int getSet() {
+        return set;
     }
 
     public int getReps() {
         return reps;
     }
 
+    /*
     public double getOneRM() {
         return oneRM;
     }
@@ -45,7 +46,10 @@ public class Exercise {
     public String getWorkoutFormula() {
         return workoutFormula;
     }
-    */
+
+
+
+    /*
 
     private String title;
     private String description;
@@ -72,4 +76,5 @@ public class Exercise {
     public int getPriority() {
         return priority;
     }
+    */
 }

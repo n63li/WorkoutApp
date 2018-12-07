@@ -1,6 +1,7 @@
 package com.example.nathan.workoutapp;
 
 //Imports
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +13,14 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.content.Intent;
+import android.widget.Toast;
+import android.util.Log;
 
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -22,7 +30,7 @@ public class WorkoutDisplayActivity extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     //private CollectionReference workoutProgramsRef = db.collection("WorkoutPrograms");
     private CollectionReference workoutProgramsRef;
-    //private DocumentReference docRef;
+    private DocumentReference dbTest;
     private String workoutDocument, weekDocument, dayDocument;
     private FloatingActionButton addButton, addExercise;
     private Animation rotate_forward, rotate_backward;
@@ -42,6 +50,9 @@ public class WorkoutDisplayActivity extends AppCompatActivity {
         String workoutDay = intent.getStringExtra(WorkoutSelectionActivity.WORKOUT_DAY);
         int targetWeight = intent.getIntExtra(WorkoutSelectionActivity.TARGET_WEIGHT,0);
 
+        //Log.d("Week position", workoutWeek);
+        //Log.d("Day position", workoutDay);
+
         TextView workoutWeekTextview = (TextView) findViewById(R.id.workoutWeek);
         workoutWeekTextview.setText(workoutWeek + ", " + workoutDay);
 
@@ -55,10 +66,10 @@ public class WorkoutDisplayActivity extends AppCompatActivity {
         weekDocument = workoutWeek.replaceAll("\\s+","");
         dayDocument = workoutDay.replaceAll("\\s+","");
 
-        //Toast.makeText(getBaseContext(),workoutDocument+weekDocument+dayDocument, Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(),weekDocument+dayDocument, Toast.LENGTH_LONG).show();
 
         workoutProgramsRef = db.collection("WorkoutPrograms").document(workoutDocument)
-                .collection("Weeks");
+                .collection("Weeks").document(weekDocument).collection(dayDocument);
 
         setUpRecyclerView();
 
@@ -75,11 +86,13 @@ public class WorkoutDisplayActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
 
-    private void setUpRecyclerView(){
-        Query query = workoutProgramsRef.orderBy("priority",Query.Direction.DESCENDING);
+    private void setUpRecyclerView() {
+        Query query = workoutProgramsRef.orderBy("set", Query.Direction.ASCENDING);
+
 
         //TODO: retrieve document 'week1' from weeks collection, and retrieve hashmap day1 based on priority
         //TODO: parse through hashmap array attributes and pass them into the getter function and then the cardview
@@ -107,7 +120,7 @@ public class WorkoutDisplayActivity extends AppCompatActivity {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-            // Don't want to actually delete workouts from database, just swipe off screen when completed
+                // Don't want to actually delete workouts from database, just swipe off screen when completed
             }
         }).attachToRecyclerView(recyclerView);
     }
