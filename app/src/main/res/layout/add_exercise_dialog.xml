@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="16dp">
+    
+    <EditText
+        android:id="@+id/addExerciseType"
+        android:hint="@string/add_exercise_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/addReps"
+        android:hint="@string/add_reps_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:layout_below="@+id/addExerciseType"
+        android:layout_alignParentStart="true"/>
+
+    <EditText
+        android:id="@+id/addWeight"
+        android:hint="@string/add_weight_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:layout_below="@+id/addReps"
+        android:layout_alignParentStart="true"/>
+</RelativeLayout>

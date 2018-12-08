@@ -38,7 +38,6 @@
         android:layout_height="wrap_content"
         app:backgroundTint="@color/colorPrimary"
         android:src="@drawable/ic_fitness_center"
-        app:fabSize="mini"
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="90dp"
         android:layout_marginRight="@dimen/fab_margin"
@@ -55,8 +54,8 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:elevation="6dp"
-        app:pressedTranslationZ="12dp"/>
-
+        app:pressedTranslationZ="12dp"
+        app:layout_behavior="com.example.nathan.workoutapp.FAB_Float_on_Scroll"/>
 
     <!--
    <LinearLayout

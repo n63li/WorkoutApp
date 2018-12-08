@@ -10,8 +10,6 @@ import android.widget.Spinner;
 import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -22,14 +20,12 @@ public class WorkoutSelectionActivity extends AppCompatActivity {
     public static final String WORKOUT_DAY = "com.example.nathan.workoutapp.WORKOUT_DAY";
     public static final String TARGET_WEIGHT = "com.example.nathan.workoutapp.TARGET_WEIGHT";
     String workoutProgram, workoutWeek, workoutDay = "";
-    int lastPosition, programPosition, weekPosition, dayPosition, targetWeight = 0;
+    int lastPosition, programPosition, targetWeight = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_selection);
-
-        Log.d("start position", "will i come back in here?");
 
         //Spinner elements
         final Spinner workoutSelectorSpinner = (Spinner)findViewById(R.id.selectWorkoutSpinner);
@@ -55,6 +51,9 @@ public class WorkoutSelectionActivity extends AppCompatActivity {
         weeks.add("Week 5");
         weeks.add("Week 6");
         weeks.add("Week 7");
+        weeks.add("Week 8");
+        weeks.add("Week 9");
+        weeks.add("Week 10");
         days.add("Day 1");
 
         //ArrayAdapter for workout program ArrayList
@@ -107,6 +106,7 @@ public class WorkoutSelectionActivity extends AppCompatActivity {
         weekSelectorSpinner.setAdapter(weeksAdapter);
         daysSelectorSpinner.setAdapter(daysAdapter);
 
+        //Storing position of week spinner
         weekSelectorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -118,6 +118,7 @@ public class WorkoutSelectionActivity extends AppCompatActivity {
             }
         });
 
+        //Storing position of day spinner
         daysSelectorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -129,98 +130,6 @@ public class WorkoutSelectionActivity extends AppCompatActivity {
                 // TODO Auto-generated method stub
             }
         });
-
-        /*
-        //Workout selector spinner listener
-        workoutSelectorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l){
-
-                //Retrieves programPosition of the spinner to determine which program is selected
-                lastPosition = programPosition;
-                programPosition = i;
-                if (i<=1 & lastPosition >1) {
-                    weeks.add("Week 8");
-                    weeks.add("Week 9");
-                    weeks.add("Week 10");
-                }
-                if (i>1){
-                    Log.d("testing", String.valueOf(weeks.size()));
-                    if(weeks.size()>7) {
-                        weeks.remove(9);
-                        weeks.remove(8);
-                        weeks.remove(7);
-                    }
-                }
-
-                //ArrayAdapter for weeks and days ArrayList
-                ArrayAdapter<String> weeksAdapter = new ArrayAdapter<String>
-                        (WorkoutSelectionActivity.this, android.R.layout.simple_spinner_dropdown_item,weeks);
-                weeksAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                ArrayAdapter<String> daysAdapter = new ArrayAdapter<String>
-                        (WorkoutSelectionActivity.this, android.R.layout.simple_spinner_dropdown_item,days);
-                daysAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                //Binding ArrayAdapter to week and day selector spinner
-                weekSelectorSpinner.setAdapter(weeksAdapter);
-                daysSelectorSpinner.setAdapter(daysAdapter);
-
-                select();
-
-                workoutWeek = weeks.get(weekPosition);
-                workoutDay = days.get(dayPosition);
-            }
-
-            //Method to add weeks based on workout program selection to ArrayList of week options
-            /*
-            private void add(){
-                workoutProgram = workoutPrograms.get(programPosition);
-                weeks.add("Week 8");
-                weeks.add("Week 9");
-                weeks.add("Week 10");
-                if (programPosition>=2){
-                    //days.add("Day 2");
-                }
-            }
-            */
-            /*
-            //OnItemSelectedListener for week selector spinner
-            private void select(){
-                weekSelectorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        //Toast.makeText(getBaseContext(),"Week " + i, Toast.LENGTH_SHORT).show();
-                        weekPosition = i;
-                        Log.d("week selection position", String.valueOf(weekPosition));
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-                        // TODO Auto-generated method stub
-                    }
-                });
-                daysSelectorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        //Toast.makeText(getBaseContext(),"Week " + i, Toast.LENGTH_SHORT).show();
-                        dayPosition = i;
-                        Log.d("day selection position", String.valueOf(dayPosition));
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-                        // TODO Auto-generated method stub
-                    }
-                });
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView){
-                // TODO Auto-generated method stub
-            }
-        });
-
-        */
 
         //Reaction to submit button press
         Button submit = (Button) findViewById(R.id.submitButton);
@@ -243,20 +152,15 @@ public class WorkoutSelectionActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
-    @Override
-    public void onResume(){
-        super.onResume();
-        Log.d("resume position", "DId i get here?");
-    }
-
+    //Opens warning dialog if user target weight input is unrealistic and dangerous
     public void openRealisticWeightDialog(){
         WeightDialog realisticWeightDialog = new WeightDialog();
         realisticWeightDialog.show(getSupportFragmentManager(),"weight_warning_dialog");
     }
 
+    //Creates new activity for displaying exercise cards and passes through user input
     public void openWorkoutDisplayActivity(){
         Intent intent = new Intent(this, WorkoutDisplayActivity.class);
         intent.putExtra(WORKOUT_PROGRAM, workoutProgram);

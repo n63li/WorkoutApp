@@ -22,6 +22,7 @@ public class ExerciseAdapter extends FirestoreRecyclerAdapter<Exercise, Exercise
         holder.exerciseTitle.setText(model.getExercise());
         holder.sets.setText("Set " + String.valueOf(model.getSet()));
         holder.reps.setText(String.valueOf(model.getReps()) + " Reps");
+        holder.weight.setText(String.valueOf(model.getWeight()) + " lb");
     }
 
     @NonNull
@@ -36,12 +37,14 @@ public class ExerciseAdapter extends FirestoreRecyclerAdapter<Exercise, Exercise
         TextView exerciseTitle;
         TextView sets;
         TextView reps;
+        TextView weight;
 
          public ExerciseHolder(View view){
              super(view);
              exerciseTitle = view.findViewById(R.id.exerciseTitle);
              sets = view.findViewById(R.id.setTitle);
              reps = view.findViewById(R.id.repTitle);
+             weight = view.findViewById(R.id.weightTitle);
          }
     }
 }

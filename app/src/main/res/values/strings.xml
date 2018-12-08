@@ -6,4 +6,7 @@
     <string name="target_weight_text">Enter Target Weight:</string>
     <string name="target_weight_submit_button_text">Submit</string>
     <string name="add_exercise_text">Add Exercise</string>
+    <string name="add_exercise_hint">Add Exercise</string>
+    <string name="add_reps_hint">Add Reps</string>
+    <string name="add_weight_hint">Add Weight (lb)</string>
 </resources>

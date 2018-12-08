@@ -23,6 +23,15 @@
             android:textStyle="bold"/>
 
         <TextView
+            android:id="@+id/weightTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Weight"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+        <TextView
             android:id="@+id/setTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
